@@ -12,6 +12,8 @@ import mongoose from "mongoose";
 import mongodb from "mongodb";
 import cron from "node-cron";
 
+console.log(process.env)
+
 mongoose
   .connect(
     "mongodb+srv://spuspam111:Sp123456@cluster0.0taaaup.mongodb.net/scripttag?retryWrites=true&w=majority"
