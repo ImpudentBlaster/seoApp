@@ -3,7 +3,7 @@
 client_id = "0404a8e12778042916fceab4e9b948d6"
 name = "seoAppDemo"
 handle = "seoappdemo"
-application_url = "https://seoapp.onrender.com"
+application_url = "https://demo-seo-app-test.onrender.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_content,read_online_store_pages,read_products,read_themes,write_c
 
 [auth]
 redirect_urls = [
-  "https://seoapp.onrender.com/auth/callback",
-  "https://seoapp.onrender.com/auth/shopify/callback",
-  "https://seoapp.onrender.com/api/auth/callback"
+  "https://demo-seo-app-test.onrender.com/auth/callback",
+  "https://demo-seo-app-test.onrender.com/auth/shopify/callback",
+  "https://demo-seo-app-test.onrender.com/api/auth/callback"
 ]
 
 [webhooks]
