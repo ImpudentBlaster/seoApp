@@ -5,6 +5,7 @@ import OnPageSeoAudit from "./pages/OnPageSeoAudit/OnPageSeoAudit";
 import StructuredDataPage from "./pages/SeoBooster/Structured_data";
 import SeoOptimizationMain from "./pages/SeoOptimization/SeoOptimizationMain";
 import SEO_Booster from "./pages/SeoBooster/SEO_Booster";
+import MetaOptimization from "./pages/MetaOptimization/MetaOptimization";
 
 /**
  * File-based routing.
@@ -38,6 +39,7 @@ export default function Routes({ pages }) {
       <Route path="/Structured_data" element={<StructuredDataPage/>}/>
       <Route path="/SeoOptimization" element={<SeoOptimizationMain/>}/>
       <Route path="/SeoBooster/SEO_Booster" element={<SEO_Booster/>}/>
+      <Route path="/MetaOptimization" element={<MetaOptimization/>}/>
     </ReactRouterRoutes>
   );
 }

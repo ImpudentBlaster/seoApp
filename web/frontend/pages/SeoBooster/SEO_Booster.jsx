@@ -26,6 +26,7 @@ import {
       description:
         "Optimize your meta title and meta description will help search engines better understand your pages and also make them more engaging to users on search results.",
       buttonText: "Configure",
+      url:"/MetaOptimization"
     },
     {
       title: "Product image alt optimization",

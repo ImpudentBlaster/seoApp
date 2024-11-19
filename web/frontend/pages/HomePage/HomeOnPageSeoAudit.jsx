@@ -73,7 +73,7 @@ const HomeOnPageSeoAudit = () => {
       key={1}
         resourceName={{ singular: "audit", plural: "audits" }}
         itemCount={sectionData.length}
-        headings={[{ title: "URL" }, { title: "Status" }, { title: "Actions" }]}
+        headings={[{ title: "Title" }, { title: "Status" }, { title: "Actions" }]}
         selectable={false}
       >
         {sectionData.map(({ id, title, handle, pageUrl }) => (
@@ -86,7 +86,7 @@ const HomeOnPageSeoAudit = () => {
                   rel="noopener noreferrer"
                   href={pageUrl}
                 >
-                  {pageUrl.slice(31)}
+                  {title}
                 </a>
               </Button>
             </IndexTable.Cell>

@@ -3,6 +3,7 @@ import { Page, Card, Tabs, IndexTable, Button, TextField, Stack } from "@shopify
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SeoOptimizationButton from "./SeoOptimizationButton";
+import '../OnPageSeoAudit/OnPageSeoAudit.css'
 
 const SeoOptimizationMain = () => {
   console.log("SeoOptimizationMain.jsx");
@@ -17,6 +18,8 @@ const SeoOptimizationMain = () => {
     blogs: [],
     others: [],
   });
+  const urlParams = new URLSearchParams(window.location.search);
+  const storeName = urlParams.get('shop');
 
   const TABS = [
     { id: "home", content: "Home", badge: auditData.home.length },
@@ -29,10 +32,6 @@ const SeoOptimizationMain = () => {
   useEffect(() => {
     const fetchData = async (shop) => {
       try {
-        console.log('Fetching audit data');
-        const urlParams = new URLSearchParams(window.location.search);
-        const storeName = urlParams.get('shop');
-      console.log(storeName)
         const response = await axios.get(`/api/seoAudit?shop=${shop}`);
         const data = response.data;
         console.log(data, "Fetched audit data");
@@ -48,8 +47,7 @@ const SeoOptimizationMain = () => {
         console.error("Failed to fetch audit data", error);
       }
     };
-    const urlParams = new URLSearchParams(window.location.search);
-    const storeName = urlParams.get('shop');
+
     fetchData(storeName);
   }, []);
 
@@ -103,7 +101,7 @@ const SeoOptimizationMain = () => {
   };
 
   const handleBack = () => {
-    navigate("/SeoOptimizationMain");
+    navigate(`/MetaOptimization?shop=${storeName}`);
   };
 
   return (

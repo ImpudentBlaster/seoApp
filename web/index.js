@@ -12,8 +12,6 @@ import mongoose from "mongoose";
 import mongodb from "mongodb";
 import cron from "node-cron";
 
-console.log(process.env)
-
 mongoose
   .connect(
     "mongodb+srv://spuspam111:Sp123456@cluster0.0taaaup.mongodb.net/scripttag?retryWrites=true&w=majority"
@@ -52,7 +50,12 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
-app.use(cors());
+app.use(cors(
+  {
+    origin:"*",
+    credentials:true
+  }
+));
 const DB_PATH = `${process.cwd()}/database.sqlite`;
 app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
@@ -96,48 +99,49 @@ app.get("/api/seoAudit", async (req, res) => {
 });
 
 async function postdata(req, res) {
-
   const DB_PATH = `${process.cwd()}/database.sqlite`;
 
   const db = new sqlite3.Database(DB_PATH);
 
-  db.all("SELECT shop, accessToken FROM shopify_sessions", async (err, rows) => {
-    if (err) {
-      console.log('Failed to retrieve store tokens from SQLite:', err);
-      return;
-    }
-
-    try {
-      // Iterate through each shop from SQLite
-      for (const row of rows) {
-        const existingShop = await Shop.findOne({ shop: row.shop });
-
-        // If shop is not found in MongoDB, add it
-        if (!existingShop) {
-          const newShop = new Shop({
-            shop: row.shop,
-            accessToken: row.accessToken,
-          });
-          await newShop.save();
-          // res.status(200).send(`Stored new shop: ${row.shop}`);
-        }
-        // } else {
-        //   console.log(`Shop ${row.shop} already exists in MongoDB`);
-        //   // res.status(200).send(`Shop ${row.shop} already exists in MongoDB`);
-        // }
+  db.all(
+    "SELECT shop, accessToken FROM shopify_sessions",
+    async (err, rows) => {
+      if (err) {
+        console.log("Failed to retrieve store tokens from SQLite:", err);
+        return;
       }
-    } catch (error) {
-      res.status(500).send('Error storing shops in MongoDB:', error);
-    } finally {
-      // Close the SQLite connection
-      db.close();
+
+      try {
+        // Iterate through each shop from SQLite
+        for (const row of rows) {
+          const existingShop = await Shop.findOne({ shop: row.shop });
+
+          // If shop is not found in MongoDB, add it
+          if (!existingShop) {
+            const newShop = new Shop({
+              shop: row.shop,
+              accessToken: row.accessToken,
+            });
+            await newShop.save();
+            // res.status(200).send(`Stored new shop: ${row.shop}`);
+          }
+          // } else {
+          //   console.log(`Shop ${row.shop} already exists in MongoDB`);
+          //   // res.status(200).send(`Shop ${row.shop} already exists in MongoDB`);
+          // }
+        }
+      } catch (error) {
+        // res.status(500).send("Error storing shops in MongoDB:", error);
+        console.log("error in mmongodb");
+      } finally {
+        // Close the SQLite connection
+        db.close();
+      }
     }
-  });
+  );
 }
 
-
-app.post('/api/store', postdata);
-
+app.post("/api/store", postdata);
 
 cron.schedule("* * * * * *", () => {
   // console.log("Running scheduled task to create script tags for all stores every second");
