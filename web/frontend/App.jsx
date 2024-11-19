@@ -20,8 +20,8 @@ export default function App() {
           <ContextProvider>
 
           <NavMenu>
-            
-            <a href="/HomePage/HomePageMain" rel="home">Seo Audit</a>
+            <a href="/" rel="home"/>
+            <a href="/HomePage/HomePageMain">Seo Audit</a>
             <a href="/SeoBooster/SEO_Booster">SEO BOOSTER</a>
             <a href="/SeoOptimization/SeoOptimizationMain">SEO Optimization</a>
           </NavMenu>
