@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "0404a8e12778042916fceab4e9b948d6"
+name = "seoAppDemo"
+handle = "seoappdemo"
+application_url = "https://calculate-track-realistic-demanding.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "impudentblaster.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_content,read_online_store_pages,read_products,read_themes,write_content,write_online_store_pages,write_products,write_script_tags,write_theme_code,write_themes"
+
+[auth]
+redirect_urls = [
+  "https://calculate-track-realistic-demanding.trycloudflare.com/auth/callback",
+  "https://calculate-track-realistic-demanding.trycloudflare.com/auth/shopify/callback",
+  "https://calculate-track-realistic-demanding.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false
