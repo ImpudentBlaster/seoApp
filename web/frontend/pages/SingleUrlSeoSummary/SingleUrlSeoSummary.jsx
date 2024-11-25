@@ -17,7 +17,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import SingleUrlSeoScoreCard from "./SingleUrlSeoScoreCard";
 import { useNavigate } from "react-router-dom";
 const SingleUrlSeoSummary = ({ error }) => {
-  console.log(window.location)
+  console.log(window.location);
   const navigate = useNavigate();
   const [openCritical, setOpenCritical] = useState(false);
   const [openImprovement, setOpenImprovement] = useState(false);
@@ -32,6 +32,7 @@ const SingleUrlSeoSummary = ({ error }) => {
     setLoading(true);
     const temp = localStorage.getItem("clickedUrlData");
     setResponse(JSON.parse(temp));
+    console.log(response, "response");
   }, []);
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const SingleUrlSeoSummary = ({ error }) => {
   }, [response]);
   function handleBack() {
     const searchParams = new URLSearchParams(window.location.search);
-    const shopName = searchParams.get('shop')
+    const shopName = searchParams.get("shop");
     navigate(`/OnPageSeoAudit/OnPageSeoAudit?shop=${shopName}`);
   }
   return (

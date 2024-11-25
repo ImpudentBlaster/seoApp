@@ -50,12 +50,12 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
-app.use(cors(
-  {
-    origin:"*",
-    credentials:true
-  }
-));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 const DB_PATH = `${process.cwd()}/database.sqlite`;
 app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
@@ -68,7 +68,53 @@ app.post(
   shopify.processWebhooks({ webhookHandlers: PrivacyWebhookHandlers })
 );
 app.use(express.json());
+app.use(shopify.cspHeaders());
+app.use(serveStatic(STATIC_PATH, { index: false }));
 /////-----API to get every page-----/////
+
+app.get("/api/storePagesUrls", async (req, res) => {
+  const arrayOfPages = ["custom_collections", "pages", "blogs"];
+
+  try {
+    const shopData = await accessToken(req.query.shop);
+    const promises = arrayOfPages.map((url) =>
+      homeUrlData(url, shopData.shop, shopData.accessToken)
+    );
+    const result = await Promise.all(promises);
+    res.send([
+      ...result[0],
+      ...result[1],
+      ...result[2],
+      `https://${req.query.shop}`,
+    ]);
+  } catch (error) {
+    res.status(500).send("Failed to fetch data");
+  }
+});
+
+async function homeUrlData(urlEndpoint, shop, accessToken) {
+  try {
+    const pagesResponse = await axios.get(
+      `https://${shop}/admin/api/2024-10/${urlEndpoint}.json`,
+      {
+        headers: {
+          "X-Shopify-Access-Token": accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return pagesResponse.data[urlEndpoint].map((item) =>
+      urlEndpoint === "custom_collections"
+        ? `https://${shop}/collections/${item.handle}`
+        : `https://${shop}/${urlEndpoint}/${item.handle}`
+    );
+  } catch (error) {
+    console.error(`Error fetching data for ${urlEndpoint}:`, error.message);
+    return [];
+  }
+}
+
 app.get("/api/seoAudit", async (req, res) => {
   const arrayOfPages = ["products", "custom_collections", "blogs", "pages"];
 
@@ -532,9 +578,6 @@ app.delete("/del-script/:id", async (req, res) => {
     return res.status(500).json({ error: "Failed to delete script tag" });
   }
 });
-
-app.use(shopify.cspHeaders());
-app.use(serveStatic(STATIC_PATH, { index: false }));
 
 async function getAccessToken(shop) {
   return new Promise((resolve, reject) => {

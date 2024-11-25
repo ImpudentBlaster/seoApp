@@ -3,7 +3,7 @@
 client_id = "0404a8e12778042916fceab4e9b948d6"
 name = "seoAppDemo"
 handle = "seoappdemo"
-application_url = "https://economics-booking-honduras-citysearch.trycloudflare.com"
+application_url = "https://recipe-inclusion-ships-months.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_content,read_online_store_pages,read_products,read_themes,write_c
 
 [auth]
 redirect_urls = [
-  "https://economics-booking-honduras-citysearch.trycloudflare.com/auth/callback",
-  "https://economics-booking-honduras-citysearch.trycloudflare.com/auth/shopify/callback",
-  "https://economics-booking-honduras-citysearch.trycloudflare.com/api/auth/callback"
+  "https://recipe-inclusion-ships-months.trycloudflare.com/auth/callback",
+  "https://recipe-inclusion-ships-months.trycloudflare.com/auth/shopify/callback",
+  "https://recipe-inclusion-ships-months.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

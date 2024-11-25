@@ -24,6 +24,7 @@ export default function App() {
             <a href="/HomePage/HomePageMain">Seo Audit</a>
             <a href="/SeoBooster/SEO_Booster">SEO BOOSTER</a>
             <a href="/SeoOptimization/SeoOptimizationMain">SEO Optimization</a>
+            <a href="/testapi">Test API</a>
           </NavMenu>
           <Routes pages={pages} />
           </ContextProvider>

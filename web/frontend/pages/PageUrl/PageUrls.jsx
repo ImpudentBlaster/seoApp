@@ -6,18 +6,22 @@ import { useNavigate } from "react-router-dom";
 
 function PageUrls({ pageUrls, eachUrlData, loading, error }) {
   const navigate = useNavigate();
+  console.log(pageUrls, "pageUrls from pageUrls");
   const { data, setData } = useContext(Context);
 
   function handleAuditClick(responseUrl) {
     const searchParams = new URLSearchParams(window.location.search);
     const shopName = searchParams.get("shop");
+    console.log(shopName, eachUrlData, responseUrl, "from pageUrls");
     let selectedUrl = "";
     eachUrlData.map((urlData) => {
+      console.log("outside if");
       if (urlData.urlName === responseUrl + "/") {
+        console.log("inside if");
         return (selectedUrl = urlData);
       }
     });
-
+    console.log(selectedUrl, "SelectedUrl");
     localStorage.setItem("clickedUrlData", JSON.stringify(selectedUrl));
     navigate(`/SingleUrlSeoSummary?shop=${shopName}`);
   }
